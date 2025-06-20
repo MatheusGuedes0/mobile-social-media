@@ -6,7 +6,6 @@ Este projeto faz parte da disciplina de Tópicos Avançados em Programação par
 ###👨‍💻 Desenvolvedores
 
     - Ana Flávia Perin
-    - Gustavo Mestre
     - Jonathan Cassol
     - Matheus Guedes
 
