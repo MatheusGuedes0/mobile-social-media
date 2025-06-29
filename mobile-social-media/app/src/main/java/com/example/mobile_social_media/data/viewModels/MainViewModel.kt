@@ -18,7 +18,10 @@ class MainViewModel(
         val usuarioLocal = usuarioRepository.getUsuarioAtual()
         if (usuarioLocal != null) {
             viewModelScope.launch {
-                usuarioRepository.salvarUsuario(usuarioLocal)
+                val usuarioNoBanco = usuarioRepository.buscarUsuario(usuarioLocal.uid)
+                if (usuarioNoBanco == null) {
+                    usuarioRepository.salvarUsuario(usuarioLocal)
+                }
                 _usuario.value = usuarioLocal
             }
         }
