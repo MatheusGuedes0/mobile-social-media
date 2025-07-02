@@ -11,11 +11,20 @@
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Bem vindo ao Runaway, O app que te move!"
+        android:layout_marginBottom="12dp"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp" />
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        />
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/runaway_app"
+    android:layout_marginBottom="16dp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -26,6 +35,13 @@
         android:id="@+id/btnGoogleSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Entrar com Google" />
+        android:text="Entrar com Google"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#AF3939"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        />
 
 </LinearLayout>
