@@ -45,30 +45,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp" />
 
-    <!-- Botão Ranking - inferior direito
-    <ImageButton
-        android:id="@+id/btnRanking"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
+    <Button
+        android:id="@+id/btnRankingGrupos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnRanking"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Ranking"/>
-        android:src="@drawable/ic_ranking"//-->
-
-    <!-- Botão Grupos - acima do Ranking -->
-    <ImageButton
-        android:id="@+id/btnGrupos"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@id/btnRanking"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Grupos"/>
-        <!--android:src="@drawable/ic_groups" -->
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="242dp"
+        android:layout_marginBottom="17dp"
+        android:text="Ranking de Grupos" />
 
 </RelativeLayout>

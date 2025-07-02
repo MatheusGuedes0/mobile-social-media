@@ -28,4 +28,9 @@ class GrupoRepository(
             .update("pontuacaoTotal", novaPontuacao)
             .await()
     }
+
+    suspend fun obterRankingGrupos(): List<Grupo> {
+        return listarGrupos().sortedByDescending { it.pontuacaoTotal }
+    }
+
 }

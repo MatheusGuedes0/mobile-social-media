@@ -28,4 +28,9 @@ class UsuarioRepository(
             email = user.email ?: ""
         )
     }
+
+    suspend fun associarUsuarioAGrupo(uid: String, grupoId: String) {
+        usuariosCollection.document(uid).update("grupoId", grupoId).await()
+    }
+
 }

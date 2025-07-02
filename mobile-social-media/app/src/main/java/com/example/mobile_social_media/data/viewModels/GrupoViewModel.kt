@@ -16,6 +16,15 @@ class GrupoViewModel(
     private val _grupos = MutableStateFlow<List<Grupo>>(emptyList())
     val grupos: StateFlow<List<Grupo>> = _grupos
 
+    private val _rankingGrupos = MutableStateFlow<List<Grupo>>(emptyList())
+    val rankingGrupos: StateFlow<List<Grupo>> = _rankingGrupos
+
+    fun carregarRankingGrupos() {
+        viewModelScope.launch {
+            _rankingGrupos.value = grupoRepository.obterRankingGrupos()
+        }
+    }
+
     fun criarGrupo(grupo: Grupo) {
         viewModelScope.launch {
             grupoRepository.criarGrupo(grupo)
