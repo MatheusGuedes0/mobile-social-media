@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtPassos: TextView
     private lateinit var txtRitmo: TextView
     private lateinit var btnStartStop: Button
-    private lateinit var btnRanking: ImageButton
+    private lateinit var btnRanking: Button
     private lateinit var btnGrupos: ImageButton
 
     private var isServiceRunning = false
@@ -84,6 +84,11 @@ class MainActivity : AppCompatActivity() {
             }
             isServiceRunning = !isServiceRunning
             updateStartStopButton()
+        }
+
+        btnRanking.setOnClickListener {
+            val intent = Intent(this, RankingActivity::class.java)
+            startActivity(intent)
         }
 
 

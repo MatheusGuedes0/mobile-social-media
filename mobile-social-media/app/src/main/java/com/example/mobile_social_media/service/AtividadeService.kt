@@ -11,13 +11,16 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.mobile_social_media.R
 import com.example.mobile_social_media.data.repository.AtividadeRepository
 import com.example.mobile_social_media.data.viewModels.AtividadeViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class AtividadeService : Service(), SensorEventListener {
 
@@ -27,6 +30,7 @@ class AtividadeService : Service(), SensorEventListener {
     private var passos = 0
     private var inicioContagem: Long = 0
     private var usuarioUid: String = ""
+    private var nomeUsuario: String = ""
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
@@ -35,16 +39,26 @@ class AtividadeService : Service(), SensorEventListener {
         const val NOTIFICATION_ID = 1
         const val EXTRA_USER_UID = "extra_user_uid"
         const val BROADCAST_PASSOS = "com.example.mobile_social_media.PASSOS_ATUALIZADOS"
+        private const val TAG = "AtividadeService"
     }
 
     override fun onCreate() {
         super.onCreate()
+        Log.d(TAG, "Service criado")
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+
+        if (stepSensor == null) {
+            Log.e(TAG, "Sensor de passos não disponível neste dispositivo")
+        } else {
+            Log.d(TAG, "Sensor de passos detectado com sucesso")
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         usuarioUid = intent?.getStringExtra(EXTRA_USER_UID) ?: ""
+
+        //Log.d(TAG, "Serviço iniciado para o usuário: $usuarioUid ($nomeUsuario)")
 
         passos = 0
         inicioContagem = System.currentTimeMillis()
@@ -53,12 +67,17 @@ class AtividadeService : Service(), SensorEventListener {
 
         stepSensor?.let {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
-        } ?: stopSelf()
+            Log.d(TAG, "Listener do sensor registrado")
+        } ?: run {
+            Log.e(TAG, "Sensor não encontrado, encerrando serviço")
+            stopSelf()
+        }
 
         return START_STICKY
     }
 
     override fun onDestroy() {
+        Log.d(TAG, "Serviço destruído")
         sensorManager.unregisterListener(this)
         enviarDadosParaFirebase()
         super.onDestroy()
@@ -86,13 +105,14 @@ class AtividadeService : Service(), SensorEventListener {
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_STEP_DETECTOR) {
             passos++
+            Log.d(TAG, "Passo detectado! Total de passos: $passos")
 
             val tempoMinutos = (System.currentTimeMillis() - inicioContagem) / 60000.0
             val ritmo = if (tempoMinutos > 0) passos / tempoMinutos else 0.0
 
+            Log.d(TAG, "Ritmo atual: %.2f passos/min".format(ritmo))
+
             AtividadeViewModel.instancia?.atualizarPassosERitmo(passos, ritmo)
-
-
         }
     }
 
@@ -102,21 +122,33 @@ class AtividadeService : Service(), SensorEventListener {
         val tempoMinutos = (System.currentTimeMillis() - inicioContagem) / 60000.0
         val nivel = calcularNivel(passos, tempoMinutos)
 
-        val atividade = com.example.mobile_social_media.data.model.AtividadeFisica(
-            usuarioUid = usuarioUid,
-            nivel = nivel,
-            passos = passos,
-            timestamp = System.currentTimeMillis()
-        )
+        Log.d(TAG, "Enviando dados para o Firebase: passos=$passos, nivel=$nivel")
+
+        val firestore = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+        val usuariosRef = firestore.collection("usuarios")
 
         scope.launch {
             try {
+                // Buscar nome do usuário no Firestore usando o UID
+                val doc = usuariosRef.document(usuarioUid).get().await()
+                val nome = doc.getString("nome") ?: "Desconhecido"
+
+                val atividade = com.example.mobile_social_media.data.model.AtividadeFisica(
+                    usuarioUid = usuarioUid,
+                    nomeUsuario = nome,
+                    nivel = nivel,
+                    passos = passos,
+                    timestamp = System.currentTimeMillis()
+                )
+
                 AtividadeRepository().registrarAtividade(atividade)
+                Log.d(TAG, "Atividade registrada com nome=$nome")
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e(TAG, "Erro ao registrar atividade com nome de usuário", e)
             }
         }
     }
+
 
     private fun calcularNivel(passos: Int, duracaoMinutos: Double): Int {
         if (duracaoMinutos <= 0) return 0
@@ -128,6 +160,4 @@ class AtividadeService : Service(), SensorEventListener {
             else -> 3
         }
     }
-
-
 }
