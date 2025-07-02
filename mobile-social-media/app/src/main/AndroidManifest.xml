@@ -32,6 +32,7 @@
 
         <!-- Tela Principal -->
         <activity android:name=".MainActivity" />
+        <activity android:name=".RankingActivity" />
 
         <!-- Serviço de Atividade Física em segundo plano -->
         <service

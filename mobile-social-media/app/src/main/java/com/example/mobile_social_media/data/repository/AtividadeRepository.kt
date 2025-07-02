@@ -21,4 +21,20 @@ class AtividadeRepository(
 
         return snapshot.documents.mapNotNull { it.toObject(AtividadeFisica::class.java) }
     }
+
+    suspend fun listarRanking(): List<AtividadeFisica> {
+        val snapshot = atividadesCollection.get().await()
+
+        // Agrupa atividades por nome de usuário e soma os níveis
+        return snapshot.documents
+            .mapNotNull { it.toObject(AtividadeFisica::class.java) }
+            .groupBy { it.nomeUsuario }
+            .map { (nome, atividades) ->
+                atividades.first().copy(nivel = atividades.sumOf { it.nivel })
+            }
+            .sortedByDescending { it.nivel }
+    }
+
+
+
 }

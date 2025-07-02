@@ -16,6 +16,10 @@ class AtividadeViewModel(
     private val atividadeRepository: AtividadeRepository = AtividadeRepository()
 ) : ViewModel(), SensorEventListener {
 
+    companion object {
+        var instancia: AtividadeViewModel? = null
+    }
+
     private val _atividades = MutableStateFlow<List<AtividadeFisica>>(emptyList())
     val atividades: StateFlow<List<AtividadeFisica>> = _atividades
 
@@ -38,6 +42,12 @@ class AtividadeViewModel(
             val lista = atividadeRepository.listarAtividadesPorUsuario(uid)
             _atividades.value = lista
         }
+    }
+
+    fun resetarPassosERitmo() {
+        _passos.value = 0
+        _ritmo.value = 0.0
+        ultimoPasso = 0L
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -74,5 +84,10 @@ class AtividadeViewModel(
         if (magnitude > 12 && now - ultimoPasso > 300) { // threshold e debounce
             contarPasso()
         }
+    }
+
+    fun atualizarPassosERitmo(passos: Int, ritmo: Double) {
+        _passos.value = passos
+        _ritmo.value = ritmo
     }
 }
