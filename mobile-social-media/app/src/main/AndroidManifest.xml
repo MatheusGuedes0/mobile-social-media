@@ -33,6 +33,12 @@
         <!-- Tela Principal -->
         <activity android:name=".MainActivity" />
         <activity android:name=".RankingActivity" />
+        <activity android:name=".CriarGrupoActivity" />
+        <activity android:name=".SelecionarUsuariosActivity" />
+        <activity android:name=".ListaGruposActivity" />
+        <activity android:name=".SelecionarUsuariosActivity" />
+        <activity android:name=".UsuariosDoGrupoActivity" />
+
 
         <!-- Serviço de Atividade Física em segundo plano -->
         <service

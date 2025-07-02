@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtRitmo: TextView
     private lateinit var btnStartStop: Button
     private lateinit var btnRanking: Button
-    private lateinit var btnGrupos: ImageButton
+    private lateinit var btnRankingGrupos: Button
 
     private var isServiceRunning = false
     private var usuarioUid: String? = null
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         txtRitmo = findViewById(R.id.txtRitmo)
         btnStartStop = findViewById(R.id.btnStartStop)
         btnRanking = findViewById(R.id.btnRanking)
-        btnGrupos = findViewById(R.id.btnGrupos)
+        btnRankingGrupos = findViewById(R.id.btnRankingGrupos)
 
         AtividadeViewModel.instancia = atividadeViewModel
 
@@ -91,6 +91,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btnRankingGrupos.setOnClickListener {
+            val intent = Intent(this, CriarGrupoActivity::class.java)
+            startActivity(intent)
+        }
 
         updateStartStopButton()
     }
