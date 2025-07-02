@@ -58,7 +58,6 @@ class AtividadeService : Service(), SensorEventListener {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         usuarioUid = intent?.getStringExtra(EXTRA_USER_UID) ?: ""
 
-        //Log.d(TAG, "Serviço iniciado para o usuário: $usuarioUid ($nomeUsuario)")
 
         passos = 0
         inicioContagem = System.currentTimeMillis()
