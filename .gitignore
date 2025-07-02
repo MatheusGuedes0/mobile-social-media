@@ -1,0 +1,44 @@
+# Ignorar arquivos de build do Gradle e caches
+.gradle/
+build/
+**/build/
+gradle/
+mobile-social-media/caches/
+**/wrapper/
+mobile-social-media/wrapper/
+
+# Gradle wrapper
+gradle/wrapper/
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Gradle wrapper
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Arquivos do sistema e editor
+*.iml
+.idea/
+.DS_Store
+*.log
+
+# Configurações locais do Android Studio
+local.properties
+
+# Arquivos de captura do Android Studio
+captures/
+
+# Arquivos externos de build nativo
+.externalNativeBuild/
+
+# Se tiver frontend React (Node.js)
+node_modules/
+
+# Logs do npm/yarn
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de pacote lock (opcional, dependendo do projeto)
+package-lock.json
+yarn.lock

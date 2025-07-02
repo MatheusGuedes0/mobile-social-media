@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "375422329097",
+    "project_id": "runawaysocialmedia",
+    "storage_bucket": "runawaysocialmedia.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375422329097:android:ae33a6d448b6bf379db3d8",
+        "android_client_info": {
+          "package_name": "com.example.mobile_social_media"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375422329097-fa35sqvkc447ila34koa0sps6mcghoqj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobile_social_media",
+            "certificate_hash": "2c295badf89efa98e4314fa4f9b598864f0a61a6"
+          }
+        },
+        {
+          "client_id": "375422329097-jp6t4acednap7g6o7in7m9q0dpnnsp95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7SClxL5IAvzvzU8MQe3UI0qtviU330vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375422329097-jp6t4acednap7g6o7in7m9q0dpnnsp95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375422329097:android:e9b7d84ac9b860569db3d8",
+        "android_client_info": {
+          "package_name": "utfpr.edu.br.usandofirecloudstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375422329097-jp6t4acednap7g6o7in7m9q0dpnnsp95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7SClxL5IAvzvzU8MQe3UI0qtviU330vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375422329097-jp6t4acednap7g6o7in7m9q0dpnnsp95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
