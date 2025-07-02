@@ -24,6 +24,9 @@
         </activity>
         <activity android:name=".MainActivity" />
 
+        <service
+            android:name=".service.AtividadeService"
+            android:exported="false" />
 
     </application>
 
